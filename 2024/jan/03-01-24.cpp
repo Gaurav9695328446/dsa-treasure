@@ -48,6 +48,7 @@ bank[i][j] is either '0' or '1'
  */
 
 #include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     int numberOfBeams(vector<string>& bank) {

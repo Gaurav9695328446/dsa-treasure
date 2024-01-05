@@ -31,6 +31,8 @@ Constraints:
 1 <= g[i], s[j] <= 231 - 1
 */
 
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
