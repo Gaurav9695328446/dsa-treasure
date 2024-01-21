@@ -13,7 +13,7 @@ Output: 17
 Explanation: 
 Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4]. 
 Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.
-Sum is 17.
+Sum is 17.s
 
 Example 2:
 
@@ -28,7 +28,7 @@ Constraints:
 */
 
 #include<bits/stdc++.h>
-using namespace std;
+using namespace std;s
 
 using ll = long long;
 const int MOD = 1e9 + 7;
