@@ -1,0 +1,13 @@
+"Class Skeleton": {
+  "prefix": "classs",
+  "body": [
+    "#include<bits/stdc++.h>",
+    "using namespace std;",
+    "",
+    "class Solution {",
+    "public:",
+    "\t$0",
+    "};"
+  ],
+  "description": "Create a skeleton for a C++ class"
+}
