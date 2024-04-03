@@ -1,46 +1,74 @@
 /*
-*/
+URL: https://leetcode.com/problems/word-search/description/?envType=daily-question&envId=2024-04-03
 
-/*
-URL: https://leetcode.com/problems/isomorphic-strings/description/?envType=daily-question&envId=2024-04-02
+79. Word Search
 
-205. Isomorphic Strings
+Given an m x n grid of characters board and a string word, return true if word exists in the grid.
 
-Given two strings s and t, determine if they are isomorphic.
-
-Two strings s and t are isomorphic if the characters in s can be replaced to get t.
-
-All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
  
 Example 1:
-Input: s = "egg", t = "add"
+
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 Output: true
+
 Example 2:
-Input: s = "foo", t = "bar"
-Output: false
-Example 3:
-Input: s = "paper", t = "title"
+
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "SEE"
 Output: true
+
+Example 3:
+
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"
+Output: false
 
  
 Constraints:
 
-	1 <= s.length <= 5 * 104
-	t.length == s.length
-	s and t consist of any valid ascii character.
+	m == board.length
+	n = board[i].length
+	1 <= m, n <= 6
+	1 <= word.length <= 15
+	board and word consists of only lowercase and uppercase English letters.
+
+ 
+Follow up: Could you use search pruning to make your solution faster with a larger board?
 */
 
 class Solution {
 public:
-    bool isIsomorphic(string s, string t) {
-         unordered_map<char, char> mp, mp2;
-        for (int i=0; i<s.length(); ++i) {
-            if (mp[s[i]] && mp[s[i]]!=t[i]) return false;
-            if (mp2[t[i]] && mp2[t[i]]!=s[i]) return false;
-            mp[s[i]]=t[i];
-            mp2[t[i]]=s[i];
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        
+        function<bool(int, int, int)> backtrack = [&](int i, int j, int k) {
+            if (k == word.length()) {
+                return true;
+            }
+            if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != word[k]) {
+                return false;
+            }
+            
+            char temp = board[i][j];
+            board[i][j] = '\0';
+            
+            if (backtrack(i + 1, j, k + 1) || backtrack(i - 1, j, k + 1) || 
+                backtrack(i, j + 1, k + 1) || backtrack(i, j - 1, k + 1)) {
+                return true;
+            }
+            
+            board[i][j] = temp; 
+            return false;
+        };
+        
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (backtrack(i, j, 0)) {
+                    return true;
+                }
+            }
         }
-        return true;
+        return false;
     }
 };
