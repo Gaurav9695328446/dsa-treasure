@@ -1,41 +1,26 @@
 /*
-URL: https://leetcode.com/problems/patching-array/description/?envType=daily-question&envId=2024-06-16
+URL: https://leetcode.com/problems/sum-of-square-numbers/description/?envType=daily-question&envId=2024-06-17
 
-330. Patching Array
+633. Sum of Square Numbers
 
-Given a sorted integer array nums and an integer n, add/patch elements to the array such that any number in the range [1, n] inclusive can be formed by the sum of some elements in the array.
-
-Return the minimum number of patches required.
+Given a non-negative integer c, decide whether there're two integers a and b such that a2 + b2 = c.
 
  
 Example 1:
 
-Input: nums = [1,3], n = 6
-Output: 1
-Explanation:
-Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.
-Now if we add/patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].
-Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].
-So we only need 1 patch.
+Input: c = 5
+Output: true
+Explanation: 1 * 1 + 2 * 2 = 5
 
 Example 2:
 
-Input: nums = [1,5,10], n = 20
-Output: 2
-Explanation: The two patches can be [2, 4].
-
-Example 3:
-
-Input: nums = [1,2,2], n = 5
-Output: 0
+Input: c = 3
+Output: false
 
  
 Constraints:
 
-	1 <= nums.length <= 1000
-	1 <= nums[i] <= 104
-	nums is sorted in ascending order.
-	1 <= n <= 231 - 1
+	0 <= c <= 231 - 1
 */
 
 
@@ -45,21 +30,19 @@ using namespace std;
 
 class Solution {
 public:
-    int minPatches(vector<int>& nums, int n) {
-        long long miss = 1;
-        int result = 0;
-        size_t i = 0;
-
-        while (miss <= n) {
-            if (i < nums.size() && nums[i] <= miss) {
-                miss += nums[i];
-                i++;
-            } else {
-                miss += miss;
-                result++;
+    bool judgeSquareSum(int c) {
+        for (int divisor = 2; divisor * divisor <= c; divisor++) {
+            if (c % divisor == 0) {
+                int exponentCount = 0;
+                while (c % divisor == 0) {
+                    exponentCount++;
+                    c /= divisor;
+                }
+                if (divisor % 4 == 3 && exponentCount % 2 != 0) {
+                    return false;
+                }
             }
         }
-
-        return result;
+        return c % 4 != 3;
     }
 };
